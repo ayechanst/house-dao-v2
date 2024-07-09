@@ -1,13 +1,14 @@
 "use client";
 
-import { MyHoldings } from "./_components";
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
-import { addToIPFS } from "~~/utils/simpleNFT/ipfs-fetch";
-import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
+import { addToIPFS } from "~~/utils/scaffold-eth/task/ipfs-fetch";
+import nftsMetadata from "~~/utils/scaffold-eth/task/nftsMetadata";
+
+// import nftsMetadata from "~~/utils/simpleNFT/nftsMetadata";
 
 const MintButton = () => {
   const { address: connectedAddress, isConnected, isConnecting } = useAccount();
@@ -24,7 +25,7 @@ const MintButton = () => {
     if (tokenIdCounter === undefined) return;
 
     const tokenIdCounterNumber = Number(tokenIdCounter);
-    const currentTokenMetaData = nftsMetadata[tokenIdCounterNumber % nftsMetadata.length];
+    const currentTokenMetaData = nftsMetadata[tokenIdCounterNumber % nftsMetadata.length]; // this reads from the non-existent meta data file
     const notificationId = notification.loading("Uploading to IPFS");
     try {
       const uploadedItem = await addToIPFS(currentTokenMetaData);
@@ -34,8 +35,9 @@ const MintButton = () => {
       notification.success("Metadata uploaded to IPFS");
 
       await writeContractAsync({
-        functionName: "mintItem",
-        args: [connectedAddress, uploadedItem.path],
+        functionName: "mint",
+        // args: [connectedAddress, uploadedItem.path], OG
+        args: [connectedAddress, tokenIdCounter], // where token URI
       });
     } catch (error) {
       notification.remove(notificationId);
