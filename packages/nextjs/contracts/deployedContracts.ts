@@ -452,7 +452,7 @@ const deployedContracts = {
       },
     },
     YourContract: {
-      address: "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
       abi: [
         {
           inputs: [
@@ -471,6 +471,38 @@ const deployedContracts = {
             },
           ],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "creatorAddress",
+              type: "address",
+            },
+          ],
+          name: "createDao",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "daosMap",
+          outputs: [
+            {
+              internalType: "address",
+              name: "daoHash",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
