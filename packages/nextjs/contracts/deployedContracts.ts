@@ -452,7 +452,7 @@ const deployedContracts = {
       },
     },
     YourContract: {
-      address: "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       abi: [
         {
           inputs: [
@@ -474,16 +474,23 @@ const deployedContracts = {
           type: "function",
         },
         {
-          inputs: [
-            {
-              internalType: "address",
-              name: "creatorAddress",
-              type: "address",
-            },
-          ],
+          inputs: [],
           name: "createDao",
           outputs: [],
           stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "currentDao",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
           type: "function",
         },
         {
@@ -501,8 +508,26 @@ const deployedContracts = {
               name: "daoHash",
               type: "address",
             },
+            {
+              internalType: "uint256",
+              name: "numOfMembers",
+              type: "uint256",
+            },
           ],
           stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "daoHash",
+              type: "address",
+            },
+          ],
+          name: "joinDao",
+          outputs: [],
+          stateMutability: "nonpayable",
           type: "function",
         },
         {
@@ -512,6 +537,40 @@ const deployedContracts = {
             {
               internalType: "uint256",
               name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "people",
+          outputs: [
+            {
+              internalType: "string",
+              name: "name",
+              type: "string",
+            },
+            {
+              internalType: "address",
+              name: "memberAddress",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "memberOf",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "reputation",
               type: "uint256",
             },
           ],

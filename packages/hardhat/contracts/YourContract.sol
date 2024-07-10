@@ -7,35 +7,41 @@ contract YourContract {
 	struct Member {
 		string name;
 		address memberAddress;
+		address memberOf;
 		uint256 reputation;
 	}
 
 	struct DAO {
 		address daoHash;
-		Member[] members;
+		address[] members;
+		uint256 numOfMembers;
 	}
 
 	mapping(address => DAO) public daosMap;
+	mapping(address => Member) public people;
+
+	address public currentDao;
 
 	function createDao() public {
-		address daoHash = generateDaoHash();
+		bytes32 prevHash = blockhash(block.number - 1);
+		address daoHash = address(
+			bytes20(keccak256(abi.encode(msg.sender, prevHash)))
+		);
 		DAO memory newDAO;
 		newDAO.daoHash = daoHash;
 		daosMap[daoHash] = newDAO;
+		currentDao = daoHash;
 	}
 
 	function joinDao(address daoHash) public {
 		Member memory newMember;
 		newMember.name = "new guy";
 		newMember.memberAddress = msg.sender;
+		newMember.memberOf = daoHash;
 		newMember.reputation = 5;
-		DAO storage dao = daosMap[daoHash];
-		dao.members.push(newMember);
-	}
-
-	function generateDaoHash() private view returns (address) {
-		bytes32 prevHash = blockhash(block.number - 1);
-		return address(bytes20(keccak256(abi.encode(msg.sender, prevHash))));
+		daosMap[daoHash].numOfMembers++;
+		daosMap[daoHash].members.push(newMember.memberAddress);
+		people[msg.sender] = newMember;
 	}
 
 	uint256 public yes;

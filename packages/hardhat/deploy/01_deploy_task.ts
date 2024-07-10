@@ -8,7 +8,6 @@ const deployTask: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
   const { deploy } = hre.deployments;
 
   const yourContract: YourContract = await ethers.getContract("YourContract");
-  const diceGameAddress = await yourContract.getAddress();
 
   await deploy("Task", {
     from: deployer,
@@ -18,13 +17,6 @@ const deployTask: DeployFunction = async function (hre: HardhatRuntimeEnvironmen
   });
 
   const task: Task = await ethers.getContract("Task", deployer);
-
-  // Please replace the text "Your Address" with your own address.
-  // try {
-  //   await riggedRoll.transferOwnership("Your Address");
-  // } catch (err) {
-  //   console.log(err);
-  // }
 };
 
 export default deployTask;
