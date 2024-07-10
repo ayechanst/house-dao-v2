@@ -1,8 +1,6 @@
 "use client";
 
-import type { NextPage } from "next";
 import { useAccount } from "wagmi";
-import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 import { notification } from "~~/utils/scaffold-eth";
 import { addToIPFS } from "~~/utils/scaffold-eth/task/ipfs-fetch";
